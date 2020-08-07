@@ -40,7 +40,9 @@ var spawnControl = {
                     var newName = 'Harvester' + Game.time;
                     console.log('Spawning new harvester: ' + newName);
                     //Game.spawns['spw1'].spawnCreep(standardBody, newName, {memory: {role: 'harvester'}});
-                    Game.rooms[c].spawns[0].spawnCreep(standardBody, newName, {memory: {role: 'harvester'}});
+                    for(var spw in Game.spawns){
+                        Game.spawns[spw].spawnCreep(standardBody, newName, {memory: {role: 'harvester'}});
+                    }
                 }
                 
                 var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
