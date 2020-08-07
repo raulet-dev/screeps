@@ -12,12 +12,13 @@ module.exports.loop = function () {
     spawnControl.run();
     generalOverview.run();
 
-    if(EVENT_ATTACK == true){}
+    
 
     for(var name in Game.creeps) {
+        /*
         if(EVENT_ATTACK == true){
             console.log('Attacked');
-        }
+        }*/
 
         var creep = Game.creeps[name];
         if(creep.memory.role == 'harvester') {
