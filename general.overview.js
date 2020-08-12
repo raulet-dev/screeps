@@ -11,15 +11,21 @@ var roleBuilder = {
             Memory.overviewEnabled = false;
         }
         var gTime = Memory.gTime;
+        var mTime = Memory.mTime;
         if(gTime == undefined){
             Memory.gTime = Game.time;
         }
-        if(Game.time - gTime > 5){
+        if(mTime == undefined){
+            Memory.mTime = Game.time;
+        }
+
+        if(Game.time - mTime > 5){
             for(var i in Memory.creeps) {
                 if(!Game.creeps[i]) {
                     delete Memory.creeps[i];
                 }
             }
+            Memory.mTime = Game.time;
         }
 
         if(Memory.overviewEnabled == true){
