@@ -34,6 +34,7 @@ var spawnControl = {
                 var carrys = _.filter(Game.creeps, (creep) => creep.memory.role == 'carry');
                 var sources = Game.rooms[c].find(FIND_SOURCES);
                 var pickS2s = _.filter(Game.creeps, (creep) => creep.memory.role == 'pickS2');
+                var constructions = Game.rooms[c].find(FIND_CONSTRUCTION_SITES);
 
                 /*if(harvesters.length < 2) {
                     var newName = 'Harvester' + Game.time;
@@ -84,7 +85,7 @@ var spawnControl = {
                     }
                 }
             
-                if(carrys.length >= 2 && upgraders.length >= 1 && builders.length < 2) {
+                if(carrys.length >= 2 && upgraders.length >= 1 && builders.length < 2 && constructions.length > 0) {
                     var newName = 'Builder' + Game.time;
                     console.log('Spawning new builder: ' + newName);
                     for(var spw in Game.spawns){
@@ -92,7 +93,7 @@ var spawnControl = {
                     }
                 }
             
-                if(carrys.length > 1 && upgraders.length >= 1 && builders.length > 1 && maintenancers.length < 3) {
+                if(carrys.length > 1 && upgraders.length >= 1 && maintenancers.length < 3) {
                     var newName = 'Maintenancer' + Game.time;
                     console.log('Spawning new maintenancer: ' + newName);
                     for(var spw in Game.spawns){
