@@ -14,6 +14,14 @@ var roleBuilder = {
         if(gTime == undefined){
             Memory.gTime = Game.time;
         }
+        if(Game.time - gTime > 5){
+            for(var i in Memory.creeps) {
+                if(!Game.creeps[i]) {
+                    delete Memory.creeps[i];
+                }
+            }
+        }
+
         if(Memory.overviewEnabled == true){
             if(Game.time - gTime > tiempoRefresco){
                 console.log('*******************************');
