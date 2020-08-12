@@ -45,13 +45,21 @@ var spawnControl = {
                     }
                 }*/
 
-                if(pickS1s.length < 2) {
+                if(pickS1s.length < 1) {
                     var newName = 'pickS1' + Game.time;
                     console.log('Spawning new pickS1: ' + newName);
                     for(var spw in Game.spawns){
-                        Game.spawns[spw].spawnCreep(pickBody, newName, {memory: {role: 'pickS1'}});
+                        Game.spawns[spw].spawnCreep([MOVE,WORK], newName, {memory: {role: 'pickS1'}});
                     }
                 }
+
+                if(pickS1s.length > 0 && pickS1s.length < 2 && carrys.lenght < 1) {
+                    var newName = 'pickS2' + Game.time;
+                    console.log('Spawning new pickS2: ' + newName);
+                    for(var spw in Game.spawns){
+                        Game.spawns[spw].spawnCreep([MOVE,CARRY], newName, {memory: {role: 'pickS2'}});
+                    }
+                } 
 
                 if(pickS1s.length > 0 && carrys.lenght < 4) {
                     var newName = 'pickS2' + Game.time;
