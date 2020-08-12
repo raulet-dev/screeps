@@ -53,7 +53,7 @@ var spawnControl = {
                     }
                 }
 
-                if(pickS1s.length > 0 && pickS1s.length < 2 && carrys.lenght < 1) {
+                if(pickS1s.length > 0 && pickS1s.length < 2 && carrys.length < 1) {
                     var newName = 'pickS2' + Game.time;
                     console.log('Spawning new pickS2: ' + newName);
                     for(var spw in Game.spawns){
@@ -61,7 +61,7 @@ var spawnControl = {
                     }
                 } 
 
-                if(pickS1s.length > 0 && carrys.lenght < 4) {
+                if(pickS1s.length > 0 && carrys.length < 4) {
                     var newName = 'pickS2' + Game.time;
                     console.log('Spawning new pickS2: ' + newName);
                     for(var spw in Game.spawns){
@@ -69,7 +69,7 @@ var spawnControl = {
                     }
                 } 
 
-                if(pickS1s.length < 2 && carrys.lenght > 0) {
+                if(pickS1s.length < 2 && carrys.length > 0) {
                     var newName = 'pickS1' + Game.time;
                     console.log('Spawning new pickS1: ' + newName);
                     for(var spw in Game.spawns){
