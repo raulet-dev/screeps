@@ -66,7 +66,7 @@ var spawnControl = {
                     var newName = 'carry' + Game.time;
                     console.log('Spawning new carry: ' + newName);
                     for(var spw in Game.spawns){
-                        Game.spawns[spw].spawnCreep(pickBody, newName, {memory: {role: 'carry'}});
+                        Game.spawns[spw].spawnCreep(carryBody, newName, {memory: {role: 'carry'}});
                     }
                 } 
 
