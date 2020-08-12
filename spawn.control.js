@@ -78,7 +78,7 @@ var spawnControl = {
                     }
                 }
             
-                if(pickS1s.length >= 2 && pickS2s.length < 2 && sources.length > 1) {
+                if(pickS1s.length >= 2 && pickS2s.length < 2 && sources.length > 1 && carrys.length > 1) {
                     var newName = 'pickS2' + Game.time;
                     console.log('Spawning new pickS2: ' + newName);
                     for(var spw in Game.spawns){
