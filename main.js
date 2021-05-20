@@ -1,12 +1,11 @@
-//var roleHarvester = require('./roles/role.harvester')
+var roleHarvester = require('./roles/role.harvester')
 var roleUpgrader = require('./roles/role.upgrader')
 var roleBuilder = require('./roles/role.builder')
 var roleMaintenancer = require('./roles/role.maintenancer')
 var spawnControl = require('spawn.control')
-var generalOverview = require('./info/general.overview')
+var generalOverview = require('./general.overview')
 var rolePickV1 = require('./roles/role.pick-v1')
 var roleCarryV1 = require('./roles/role.carry-v1')
-import Harvester from './roles/harvester'
 
 module.exports.loop = function () {
   spawnControl.run()
@@ -20,8 +19,7 @@ module.exports.loop = function () {
 
     var creep = Game.creeps[name]
     if (creep.memory.role == 'harvester') {
-      //roleHarvester.run(creep)
-      Harvester()
+      roleHarvester.run(creep)
     }
     if (creep.memory.role == 'upgrader') {
       roleUpgrader.run(creep)
