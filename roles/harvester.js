@@ -1,4 +1,4 @@
-const roleHarvester = (creep) => {
+export const Harvester = (creep) => {
   /** @param {Creep} creep **/
   if (creep.store.getFreeCapacity() > 0) {
     var sources = creep.room.find(FIND_SOURCES)
@@ -24,5 +24,3 @@ const roleHarvester = (creep) => {
     }
   }
 }
-
-export default roleHarvester
