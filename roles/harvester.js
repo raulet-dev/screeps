@@ -1,4 +1,4 @@
-export const Harvester = (creep) => {
+const Harvester = (creep) => {
   /** @param {Creep} creep **/
   if (creep.store.getFreeCapacity() > 0) {
     var sources = creep.room.find(FIND_SOURCES)
@@ -24,3 +24,5 @@ export const Harvester = (creep) => {
     }
   }
 }
+
+module.exports = Harvester
