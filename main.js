@@ -1,11 +1,11 @@
-var roleHarvester = require('./roles/role.harvester')
-var roleUpgrader = require('./roles/role.upgrader')
-var roleBuilder = require('./roles/role.builder')
-var roleMaintenancer = require('./roles/role.maintenancer')
+var roleHarvester = require('role.harvester')
+var roleUpgrader = require('role.upgrader')
+var roleBuilder = require('role.builder')
+var roleMaintenancer = require('role.maintenancer')
 var spawnControl = require('spawn.control')
-var generalOverview = require('./general.overview')
-var rolePickV1 = require('./roles/role.pick-v1')
-var roleCarryV1 = require('./roles/role.carry-v1')
+var generalOverview = require('general.overview')
+var rolePickV1 = require('role.pick-v1')
+var roleCarryV1 = require('role.carry-v1')
 
 module.exports.loop = function () {
   spawnControl.run()
