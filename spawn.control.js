@@ -1,34 +1,67 @@
 var spawnCreep = require('./spawn.spawnCreep')
-
-function bodyCost(body) {
-  let sum = 0
-  for (let i in body) sum += BODYPART_COST[body[i]]
-  return sum
-}
+var spawnControlPick = require('./spawn.control.pick')
+var utils = require('./utils')
 
 var spawnControl = {
   run: function () {
-    var standardBody
-    var pickBody
-    var carryBody
-
     for (const c in Game.rooms) {
+      var enerA = Game.rooms[c].energyAvailable
+      var enerT = Game.rooms[c].energyCapacityAvailable
+      var sources = Game.rooms[c].find(FIND_SOURCES)
+      var myCreeps = Game.rooms[c].find(FIND_MY_CREEPS)
+
+      if (enerA > 100) {
+        var picks = _.filter(myCreeps, (creep) => creep.memory.role == 'pick')
+        var carrys = _.filter(myCreeps, (creep) => creep.memory.role == 'carry')
+        var upgraders = _.filter(
+          myCreeps,
+          (creep) => creep.memory.role == 'upgrade'
+        )
+        if (picks.length < sources.length * 2) {
+          if (enerA > 150) {
+            // try to locate the spwns by id
+
+            for (var spw in Game.spawns) {
+              var body = [MOVE, WORK]
+              var name = 'pick'
+              spawnCreep.run(spw, body, name, utils.bodyCost(body), 1)
+            }
+          }
+        } else if (carrys.length < picks.length) {
+          if (enerA > 100) {
+            for (var spw in Game.spawns) {
+              var body = [MOVE, CARRY]
+              var name = 'carry'
+              spawnCreep.run(spw, body, name, utils.bodyCost(body), 1)
+            }
+          }
+        } else if (upgraders.length < 1) {
+          if (enerA > 200) {
+            for (var spw in Game.spawns) {
+              var body = [MOVE, CARRY, WORK]
+              var name = 'upgrade'
+              spawnCreep.run(spw, body, name, utils.bodyCost(body), 1)
+            }
+          }
+        }
+      }
+      /*
       //var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
       var upgraders = _.filter(
         Game.creeps,
-        (creep) => creep.memory.role == 'upgrader'
+        (creep) => creep.memory.role == 'upgrade'
       )
       var builders = _.filter(
         Game.creeps,
-        (creep) => creep.memory.role == 'builder'
+        (creep) => creep.memory.role == 'build'
       )
       var maintenancers = _.filter(
         Game.creeps,
-        (creep) => creep.memory.role == 'maintenancer'
+        (creep) => creep.memory.role == 'mantain'
       )
       var pickS1s = _.filter(
         Game.creeps,
-        (creep) => creep.memory.role == 'pickS1'
+        (creep) => creep.memory.role == 'pick'
       )
       var carrys = _.filter(
         Game.creeps,
@@ -37,40 +70,15 @@ var spawnControl = {
       var sources = Game.rooms[c].find(FIND_SOURCES)
       var pickS2s = _.filter(
         Game.creeps,
-        (creep) => creep.memory.role == 'pickS2'
+        (creep) => creep.memory.role == 'pickT2'
       )
       var constructions = Game.rooms[c].find(FIND_CONSTRUCTION_SITES)
-
-      var enerA = Game.rooms[c].energyAvailable
-      var enerT = Game.rooms[c].energyCapacityAvailable
-      var cost = 0
-      if (enerT >= 400) {
-        standardBody = [MOVE, MOVE, WORK, WORK, CARRY, CARRY]
-        pickBody = [MOVE, MOVE, WORK, WORK, WORK]
-        carryBody = [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY]
-        cost = 400
-      } else {
-        standardBody = [MOVE, WORK, CARRY]
-        pickBody = [MOVE, WORK]
-        carryBody = [MOVE, MOVE, CARRY, CARRY]
-        cost = 200
-      }
-      /*
-      if (pickS1s.length < 1 && enerA > 150) {
-        var newName = 'pickS1' + Game.time
-        console.log('Spawning new pickS1: ' + newName)
-        for (var spw in Game.spawns) {
-          Game.spawns[spw].spawnCreep([MOVE, WORK], newName, {
-            memory: { role: 'pickS1' },
-          })
-        }
-      }
-      */
 
       if (pickS1s.length < 1 && enerA > 150) {
         for (var spw in Game.spawns) {
           var body = [MOVE, WORK]
-          spawnCreep(spw, body, 'pickS1', bodyCost(body))
+          var name = 'pickT1'
+          spawnCreep(spw, body, name, utils.bodyCost(body), 1)
         }
       }
 
@@ -98,7 +106,7 @@ var spawnControl = {
                         Game.spawns[spw].spawnCreep(standardBody, newName, {memory: {role: 'harvester'}});
                     }
                 }*/
-
+      /*
         if (pickS1s.length > 0 && carrys.length < 4) {
           var newName = 'carry' + Game.time
           console.log(`Spawning new carry: ${newName} cost: ${cost}`)
@@ -173,6 +181,7 @@ var spawnControl = {
           }
         }
       }
+      */
     }
   },
 }

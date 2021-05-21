@@ -1,9 +1,16 @@
+var spawnControlPick = require('./spawn.control.pick')
+
 var spawnCreep = {
-  function(spw, body, role, cost) {
-    var creep = Game.spawns[spw].spawnCreep(body, `${role}${Game.time}`, {
-      memory: { role: role },
-    })
-    console.log(`Spwn new creep: ${creep.name}, cost: ${cost}`)
+  run: function (spw, body, role, cost, priority) {
+    if (role === 'pick') {
+      spawnControlPick.run(spw, body, role, cost, priority)
+    } else {
+      var name = `${role}_${Game.time}`
+      Game.spawns[spw].spawnCreep(body, name, {
+        memory: { role: role, priority: priority },
+      })
+      console.log(`Spawn new ${role}: ${name}, cost: ${cost}`)
+    }
   },
 }
 

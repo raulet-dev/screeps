@@ -21,7 +21,7 @@ module.exports.loop = function () {
     if (creep.memory.role == 'harvester') {
       roleHarvester.run(creep)
     }
-    if (creep.memory.role == 'upgrader') {
+    if (creep.memory.role == 'upgrade') {
       roleUpgrader.run(creep)
     }
     if (creep.memory.role == 'builder') {
@@ -30,7 +30,7 @@ module.exports.loop = function () {
     if (creep.memory.role == 'maintenancer') {
       roleMaintenancer.run(creep)
     }
-    if (creep.memory.role == 'pickS1' || creep.memory.role == 'pickS2') {
+    if (creep.memory.role == 'pick') {
       rolePickV1.run(creep)
     }
     if (creep.memory.role == 'carry') {
