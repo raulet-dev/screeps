@@ -41,7 +41,7 @@ function Unload(creep) {
       )
     },
   })
-  if (Game.getObjectById(targets.id)) {
+  if (targets) {
     if (creep.transfer(targets, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
       creep.moveTo(targets, {
         visualizePathStyle: { stroke: '#ffffff' },
