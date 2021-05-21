@@ -27,7 +27,7 @@ var spawnControl = {
               spawnCreep.run(spw, body, name, utils.bodyCost(body), 1)
             }
           }
-        } else if (carrys.length < picks.length) {
+        } else if (carrys.length < sources.length) {
           if (enerA > 100) {
             for (var spw in Game.spawns) {
               var body = [MOVE, CARRY]
