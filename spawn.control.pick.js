@@ -1,5 +1,5 @@
 var spawnControlPick = {
-  run: function (spw, body, role, cost, priority) {
+  run: function (spw, body, role, cost, queue) {
     var sources = Game.spawns[spw].room.find(FIND_SOURCES)
     var creepsInRoom = Game.spawns[spw].room.find(FIND_MY_CREEPS)
     var sourcesIds = []
@@ -19,8 +19,8 @@ var spawnControlPick = {
       }
       if (count < 2) {
         var name = `${role}_${Game.time}`
-        Game.spawns[spw].spawnCreep(body, name, {
-          memory: { role: role, priority: priority, assign: sourcesIds[id] },
+        var spawn = Game.spawns[spw].spawnCreep(body, name, {
+          memory: { role: role, assign: sourcesIds[id] },
         })
         console.log(
           `Spawn new ${role}: ${name}, cost: ${cost}, assigned to: ${sourcesIds[id]}`
