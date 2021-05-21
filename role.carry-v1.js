@@ -2,10 +2,21 @@ var roleCarryV1 = {
   /** @param {Creep} creep **/
   run: function (creep) {
     if (creep.store.getFreeCapacity() > 0 && creep.memory.action == 'loading') {
-      var drops = creep.room.find(FIND_DROPPED_RESOURCES)
-      if (drops.length > 0) {
-        if (creep.pickup(drops[0]) == ERR_NOT_IN_RANGE) {
-          creep.moveTo(drops[0], { visualizePathStyle: { stroke: '#0000ff' } })
+      var drops = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES)
+      if (Game.getObjectById(creep.memory.pickupTarget) == null) {
+        creep.memory.pickupTarget = ''
+      }
+      if (creep.memory.pickupTarget == '') {
+        creep.memory.pickupTarget = drops.id
+      }
+      if (Game.getObjectById(creep.memory.pickupTarget)) {
+        if (
+          creep.pickup(Game.getObjectById(creep.memory.pickupTarget)) ==
+          ERR_NOT_IN_RANGE
+        ) {
+          creep.moveTo(Game.getObjectById(creep.memory.pickupTarget), {
+            visualizePathStyle: { stroke: '#0000ff' },
+          })
         }
         creep.memory.action = 'loading'
       } else {
@@ -19,7 +30,7 @@ var roleCarryV1 = {
 
 function Unload(creep) {
   creep.memory.action = 'unloading'
-  var targets = creep.room.find(FIND_STRUCTURES, {
+  var targets = creep.pos.findClosestByPath(FIND_STRUCTURES, {
     filter: (structure) => {
       return (
         (structure.structureType == STRUCTURE_EXTENSION ||
@@ -30,9 +41,11 @@ function Unload(creep) {
       )
     },
   })
-  if (targets.length > 0) {
-    if (creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-      creep.moveTo(targets[0], { visualizePathStyle: { stroke: '#ffffff' } })
+  if (Game.getObjectById(targets.id)) {
+    if (creep.transfer(targets, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+      creep.moveTo(targets, {
+        visualizePathStyle: { stroke: '#ffffff' },
+      })
     }
   }
   if (creep.store.getCapacity() - creep.store.getFreeCapacity() == 0) {

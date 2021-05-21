@@ -7,7 +7,7 @@ var spawnCreep = {
     } else {
       var name = `${role}_${Game.time}`
       Game.spawns[spw].spawnCreep(body, name, {
-        memory: { role: role, priority: queue },
+        memory: { role: role, pickupTarget: '' },
       })
       console.log(`Spawn new ${role}: ${name}, cost: ${cost}`)
     }

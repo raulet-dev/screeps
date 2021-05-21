@@ -30,6 +30,10 @@ var spawnControl = {
             myCreeps,
             (creep) => creep.memory.role == 'upgrade'
           )
+          var builders = _.filter(
+            myCreeps,
+            (creep) => creep.memory.role == 'build'
+          )
           if (picks.length < sources.length * 2) {
             var name = 'pick'
             if (roomQueue[name] == 1 && thisSpawn.memory.spawnType == 'none') {
@@ -64,6 +68,22 @@ var spawnControl = {
             }
           } else if (upgraders.length < 1) {
             var name = 'upgrade'
+            if (roomQueue[name] == 1 && thisSpawn.memory.spawnType == 'none') {
+              if (enerA > 200) {
+                var body = [MOVE, CARRY, WORK]
+
+                thisSpawn.memory.spawnType = name
+                spawnCreep.run(spw, body, name, utils.bodyCost(body))
+                roomQueue[name] = 0
+              }
+            } else {
+              if (roomQueue[name] != 1 && thisSpawn.memory.spawnType != name) {
+                roomQueue[name] = 1
+                console.log(`add ${name} to queue`)
+              }
+            }
+          } else if (builders.length < 1) {
+            var name = 'build'
             if (roomQueue[name] == 1 && thisSpawn.memory.spawnType == 'none') {
               if (enerA > 200) {
                 var body = [MOVE, CARRY, WORK]
