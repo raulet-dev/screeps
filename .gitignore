@@ -1,0 +1,31 @@
+# --- Node.js ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+# Keep package.json, but ignore lock if you want exact control
+
+# --- Screeps Specific ---
+# Ignore local server configs & credentials
+.screeps.json
+screeps.json
+# Ignore the local binary/data if running a local server in this folder
+db.json
+storage/
+logs/
+
+# --- VS Code ---
+.vscode/
+# Exception: allow the extensions.json or settings.json if shared
+# !.vscode/settings.json
+
+# --- TypeScript / Build Output ---
+# If using TS, ignore the compiled JS folder (usually 'dist' or 'out')
+dist/
+out/
+*.tsbuildinfo
+
+# --- OS Specific ---
+.DS_Store
+Thumbs.db
